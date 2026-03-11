@@ -1,29 +1,10 @@
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { ShieldCheck, Zap, BarChart3, MessageCircle } from "lucide-react";
-import { useRef } from "react";
+import AnimatedSection from "@/components/AnimatedSection";
+import { scrollVariants } from "@/hooks/use-scroll-animation";
 import aboutImg from "@/assets/about-illustration.png";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const fadeRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" as const } },
-};
-
-const stagger = { visible: { transition: { staggerChildren: 0.15 } } };
+const { fadeUp, fadeLeft, fadeRight, scaleIn, stagger } = scrollVariants;
 
 const whyUs = [
   { icon: ShieldCheck, title: "Pre-screened Professionals", desc: "Every candidate goes through rigorous technical and background screening." },
@@ -31,22 +12,6 @@ const whyUs = [
   { icon: BarChart3, title: "Scalable Staffing Models", desc: "Flexible engagement models that grow with your business needs." },
   { icon: MessageCircle, title: "Transparent Communication", desc: "Open, honest partnership with regular updates and reporting." },
 ];
-
-const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={stagger}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
 
 const About = () => {
   return (
