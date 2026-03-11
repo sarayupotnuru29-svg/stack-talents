@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Users, Search, Code, Globe, Cloud, ArrowRight } from "lucide-react";
+import { useRef } from "react";
 import logo from "@/assets/logo.jpeg";
 import staffingImg from "@/assets/staffing-illustration.png";
 import softwareImg from "@/assets/software-illustration.png";
@@ -9,8 +10,23 @@ import webImg from "@/assets/web-illustration.png";
 import recruitingImg from "@/assets/recruiting-illustration.png";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
 const stagger = {
@@ -25,15 +41,41 @@ const services = [
   { icon: Cloud, title: "Cloud & API Integration", desc: "Seamless cloud migration and API integration solutions.", img: cloudImg },
 ];
 
+const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={stagger}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-gradient-hero overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center opacity-10">
-          <img src={logo} alt="" className="w-[600px] h-[600px] object-contain" aria-hidden="true" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background" />
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          poster=""
+        >
+          <source src="https://videos.pexels.com/video-files/1721294/1721294-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-background/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 pt-24">
           <motion.div
@@ -74,32 +116,20 @@ const Index = () => {
       {/* Services Overview */}
       <section className="section-padding bg-gradient-dark">
         <div className="container mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="text-center mb-16"
-          >
+          <AnimatedSection className="text-center mb-16">
             <motion.p variants={fadeUp} className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
               What We Do
             </motion.p>
             <motion.h2 variants={fadeUp} className="font-display text-3xl md:text-4xl font-bold">
               Our Services
             </motion.h2>
-          </motion.div>
+          </AnimatedSection>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <AnimatedSection className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service) => (
               <motion.div
                 key={service.title}
-                variants={fadeUp}
+                variants={scaleIn}
                 className="glass-card hover-glow p-6 group cursor-pointer"
               >
                 <div className="h-40 rounded-lg overflow-hidden mb-5">
@@ -117,27 +147,21 @@ const Index = () => {
                 </Link>
               </motion.div>
             ))}
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* About Preview */}
       <section className="section-padding bg-background">
         <div className="container mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="max-w-3xl mx-auto text-center"
-          >
+          <AnimatedSection className="max-w-3xl mx-auto text-center">
             <motion.p variants={fadeUp} className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
               Who We Are
             </motion.p>
-            <motion.h2 variants={fadeUp} className="font-display text-3xl md:text-4xl font-bold mb-6">
+            <motion.h2 variants={fadeLeft} className="font-display text-3xl md:text-4xl font-bold mb-6">
               About Stack Talent
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-muted-foreground text-lg leading-relaxed mb-8">
+            <motion.p variants={fadeRight} className="text-muted-foreground text-lg leading-relaxed mb-8">
               Stack Talent IT Services is a USA-focused IT staffing and custom software development company delivering high-performance talent and scalable solutions to businesses worldwide.
             </motion.p>
             <motion.div variants={fadeUp}>
@@ -148,7 +172,7 @@ const Index = () => {
                 Learn More <ArrowRight size={16} />
               </Link>
             </motion.div>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -157,13 +181,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="absolute inset-0 glow-border opacity-30" />
         <div className="container mx-auto relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="text-center max-w-2xl mx-auto"
-          >
+          <AnimatedSection className="text-center max-w-2xl mx-auto">
             <motion.h2 variants={fadeUp} className="font-display text-3xl md:text-4xl font-bold mb-6">
               Looking for top IT talent or your next opportunity?
             </motion.h2>
@@ -181,7 +199,7 @@ const Index = () => {
                 Submit Your Profile
               </Link>
             </motion.div>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
     </div>

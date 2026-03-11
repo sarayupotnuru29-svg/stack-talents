@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Clock, CheckCircle } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -11,7 +11,6 @@ const stagger = { visible: { transition: { staggerChildren: 0.15 } } };
 const serviceOptions = ["IT Staffing", "Recruiting", "Software Development", "Web Applications", "Cloud Integration"];
 
 const contactInfo = [
-  { icon: Phone, label: "Phone", value: "7995506006", href: "tel:7995506006" },
   { icon: Mail, label: "Email", value: "Stacktalentitservices@gmail.com", href: "mailto:Stacktalentitservices@gmail.com" },
   { icon: MapPin, label: "Address", value: "USA (Address coming soon)", href: null },
 ];
@@ -26,14 +25,17 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [service, setService] = useState("");
   const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
 
-    const text = encodeURIComponent(`Hi Stack Talent, I'm interested in: ${service}. Message: ${message}`);
+    const subject = encodeURIComponent(`Inquiry: ${service}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nService: ${service}\n\nMessage:\n${message}`);
     setTimeout(() => {
-      window.open(`https://wa.me/917995506006?text=${text}`, "_blank");
+      window.open(`mailto:Stacktalentitservices@gmail.com?subject=${subject}&body=${body}`, "_self");
     }, 1500);
   };
 
@@ -43,7 +45,7 @@ const Contact = () => {
         <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="glass-card p-12 text-center max-w-md mx-4">
           <CheckCircle size={64} className="text-primary mx-auto mb-6" />
           <h2 className="font-display text-2xl font-bold mb-3">Message Sent!</h2>
-          <p className="text-muted-foreground">Redirecting you to WhatsApp...</p>
+          <p className="text-muted-foreground">Opening your email client...</p>
         </motion.div>
       </div>
     );
@@ -112,13 +114,13 @@ const Contact = () => {
 
               <motion.div variants={fadeUp}>
                 <label className="block text-sm font-medium text-foreground mb-2">Name *</label>
-                <input required type="text" maxLength={100} className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Your name" />
+                <input required type="text" maxLength={100} value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Your name" />
               </motion.div>
 
               <motion.div variants={fadeUp} className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">Email *</label>
-                  <input required type="email" maxLength={255} className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="email@example.com" />
+                  <input required type="email" maxLength={255} value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="email@example.com" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">Phone</label>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Linkedin, Mail, Phone, MapPin, Heart } from "lucide-react";
+import { Instagram, Linkedin, Mail, MapPin, Heart } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
 
 const Footer = () => {
@@ -81,9 +81,6 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Contact</h4>
             <div className="flex flex-col gap-3">
-              <a href="tel:7995506006" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-                <Phone size={16} className="text-primary" /> 7995506006
-              </a>
               <a href="mailto:Stacktalentitservices@gmail.com" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors">
                 <Mail size={16} className="text-primary" /> Stacktalentitservices@gmail.com
               </a>

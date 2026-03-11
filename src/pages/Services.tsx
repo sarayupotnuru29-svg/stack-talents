@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import staffingImg from "@/assets/staffing-illustration.png";
 import recruitingImg from "@/assets/recruiting-illustration.png";
 import softwareImg from "@/assets/software-illustration.png";
@@ -7,9 +8,20 @@ import webImg from "@/assets/web-illustration.png";
 import cloudImg from "@/assets/cloud-illustration.png";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+
 const stagger = { visible: { transition: { staggerChildren: 0.15 } } };
 
 const servicesSections = [
@@ -45,6 +57,22 @@ const servicesSections = [
   },
 ];
 
+const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={stagger}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 const Services = () => {
   return (
     <div className="min-h-screen pt-20">
@@ -67,14 +95,10 @@ const Services = () => {
       {servicesSections.map((service, idx) => (
         <section key={service.title} className={`section-padding ${idx % 2 === 0 ? "bg-gradient-dark" : "bg-background"}`}>
           <div className="container mx-auto">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={stagger}
+            <AnimatedSection
               className={`grid lg:grid-cols-2 gap-12 items-center ${idx % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
             >
-              <motion.div variants={fadeUp} className={idx % 2 !== 0 ? "lg:order-2" : ""}>
+              <motion.div variants={idx % 2 === 0 ? fadeLeft : fadeRight} className={idx % 2 !== 0 ? "lg:order-2" : ""}>
                 <h2 className="font-display text-3xl font-bold mb-5">{service.title}</h2>
                 <p className="text-muted-foreground leading-relaxed mb-6">{service.desc}</p>
                 <ul className="space-y-3 mb-8">
@@ -92,10 +116,10 @@ const Services = () => {
                   Get Started
                 </Link>
               </motion.div>
-              <motion.div variants={fadeUp} className={`rounded-2xl overflow-hidden glow-border ${idx % 2 !== 0 ? "lg:order-1" : ""}`}>
+              <motion.div variants={idx % 2 === 0 ? fadeRight : fadeLeft} className={`rounded-2xl overflow-hidden glow-border ${idx % 2 !== 0 ? "lg:order-1" : ""}`}>
                 <img src={service.img} alt={service.title} className="w-full h-auto" />
               </motion.div>
-            </motion.div>
+            </AnimatedSection>
           </div>
         </section>
       ))}

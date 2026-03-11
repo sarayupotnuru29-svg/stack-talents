@@ -36,8 +36,9 @@ const CandidateForm = () => {
     setSubmitted(true);
 
     setTimeout(() => {
-      const message = encodeURIComponent("Hi Stack Talent, I have submitted my profile.");
-      window.open(`https://wa.me/917995506006?text=${message}`, "_blank");
+      const subject = encodeURIComponent("Profile Submission - Stack Talent");
+      const body = encodeURIComponent("Hi Stack Talent, I have submitted my profile. Please find my details attached.");
+      window.open(`mailto:Stacktalentitservices@gmail.com?subject=${subject}&body=${body}`, "_self");
     }, 2000);
   };
 
@@ -51,7 +52,7 @@ const CandidateForm = () => {
         >
           <CheckCircle size={64} className="text-primary mx-auto mb-6" />
           <h2 className="font-display text-2xl font-bold mb-3">Profile Submitted!</h2>
-          <p className="text-muted-foreground">Thank you for your submission. Redirecting you to WhatsApp...</p>
+          <p className="text-muted-foreground">Thank you for your submission. Opening your email client...</p>
         </motion.div>
       </div>
     );
