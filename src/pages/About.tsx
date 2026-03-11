@@ -5,22 +5,22 @@ import aboutImg from "@/assets/about-illustration.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
 const fadeLeft = {
   hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
 const fadeRight = {
   hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
 const stagger = { visible: { transition: { staggerChildren: 0.15 } } };

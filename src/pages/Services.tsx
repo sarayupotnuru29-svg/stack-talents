@@ -9,17 +9,17 @@ import cloudImg from "@/assets/cloud-illustration.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
 const fadeLeft = {
   hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
 const fadeRight = {
   hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 };
 
 const stagger = { visible: { transition: { staggerChildren: 0.15 } } };
