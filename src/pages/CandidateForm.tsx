@@ -38,7 +38,7 @@ const CandidateForm = () => {
     setTimeout(() => {
       const subject = encodeURIComponent("Profile Submission - Stack Talent");
       const body = encodeURIComponent("Hi Stack Talent, I have submitted my profile. Please find my details attached.");
-      window.open(`mailto:Stacktalentitservices@gmail.com?subject=${subject}&body=${body}`, "_self");
+      window.open(`mailto:Hr@stacktalentits.com?subject=${subject}&body=${body}`, "_self");
     }, 2000);
   };
 

@@ -11,7 +11,7 @@ const stagger = { visible: { transition: { staggerChildren: 0.15 } } };
 const serviceOptions = ["IT Staffing", "Recruiting", "Software Development", "Web Applications", "Cloud Integration"];
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "Stacktalentitservices@gmail.com", href: "mailto:Stacktalentitservices@gmail.com" },
+  { icon: Mail, label: "Email", value: "Hr@stacktalentits.com", href: "mailto:Hr@stacktalentits.com" },
   { icon: MapPin, label: "Address", value: "USA (Address coming soon)", href: null },
 ];
 
@@ -35,7 +35,7 @@ const Contact = () => {
     const subject = encodeURIComponent(`Inquiry: ${service}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nService: ${service}\n\nMessage:\n${message}`);
     setTimeout(() => {
-      window.open(`mailto:Stacktalentitservices@gmail.com?subject=${subject}&body=${body}`, "_self");
+      window.open(`mailto:Hr@stacktalentits.com?subject=${subject}&body=${body}`, "_self");
     }, 1500);
   };
 
