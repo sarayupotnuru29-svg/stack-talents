@@ -8,7 +8,7 @@ type ScrollAnimationOptions = {
 };
 
 export const useScrollAnimation = (options: ScrollAnimationOptions = {}) => {
-  const { once = true, margin = "-100px", amount } = options;
+  const { once = true, margin = "-100px" as any, amount } = options;
   const ref = useRef(null);
   const isInView = useInView(ref, { once, margin, amount });
   return { ref, isInView };
