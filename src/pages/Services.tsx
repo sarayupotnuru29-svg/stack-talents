@@ -1,28 +1,14 @@
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import AnimatedSection from "@/components/AnimatedSection";
+import { scrollVariants } from "@/hooks/use-scroll-animation";
 import staffingImg from "@/assets/staffing-illustration.png";
 import recruitingImg from "@/assets/recruiting-illustration.png";
 import softwareImg from "@/assets/software-illustration.png";
 import webImg from "@/assets/web-illustration.png";
 import cloudImg from "@/assets/cloud-illustration.png";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const fadeRight = {
-  hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const stagger = { visible: { transition: { staggerChildren: 0.15 } } };
+const { fadeUp, fadeLeft, fadeRight, stagger } = scrollVariants;
 
 const servicesSections = [
   {
@@ -56,22 +42,6 @@ const servicesSections = [
     img: cloudImg,
   },
 ];
-
-const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={stagger}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
 
 const Services = () => {
   return (

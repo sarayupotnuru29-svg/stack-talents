@@ -1,37 +1,16 @@
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Users, Search, Code, Globe, Cloud, ArrowRight } from "lucide-react";
 import { useRef } from "react";
-import logo from "@/assets/logo.jpeg";
+import AnimatedSection from "@/components/AnimatedSection";
+import { scrollVariants } from "@/hooks/use-scroll-animation";
 import staffingImg from "@/assets/staffing-illustration.png";
 import softwareImg from "@/assets/software-illustration.png";
 import cloudImg from "@/assets/cloud-illustration.png";
 import webImg from "@/assets/web-illustration.png";
 import recruitingImg from "@/assets/recruiting-illustration.png";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const fadeRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" as const } },
-};
-
-const stagger = {
-  visible: { transition: { staggerChildren: 0.15 } },
-};
+const { fadeUp, fadeLeft, fadeRight, scaleIn, stagger } = scrollVariants;
 
 const services = [
   { icon: Users, title: "IT Staffing Services", desc: "Contract, contract-to-hire, and permanent placements for top IT roles.", img: staffingImg },
@@ -41,43 +20,41 @@ const services = [
   { icon: Cloud, title: "Cloud & API Integration", desc: "Seamless cloud migration and API integration solutions.", img: cloudImg },
 ];
 
-const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={stagger}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
 const Index = () => {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          poster=""
-        >
-          <source src="https://videos.pexels.com/video-files/1721294/1721294-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-        </video>
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-background/75" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+        <motion.div className="absolute inset-0" style={{ scale: videoScale }}>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/chicago-skyline.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
+        {/* Dark overlays for readability */}
+        <div className="absolute inset-0 bg-background/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-transparent" />
 
-        <div className="container mx-auto px-4 md:px-8 relative z-10 pt-24">
+        <motion.div
+          className="container mx-auto px-4 md:px-8 relative z-10 pt-24"
+          style={{ opacity: heroOpacity, y: heroY }}
+        >
           <motion.div
             initial="hidden"
             animate="visible"
@@ -110,7 +87,18 @@ const Index = () => {
               </Link>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+          animate={{ y: [0, 12, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="w-6 h-10 rounded-full border-2 border-primary/40 flex justify-center pt-2">
+            <div className="w-1.5 h-3 rounded-full bg-primary/60" />
+          </div>
+        </motion.div>
       </section>
 
       {/* Services Overview */}
