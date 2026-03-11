@@ -3,7 +3,7 @@ import { useInView, useScroll, useTransform, MotionValue } from "framer-motion";
 
 type ScrollAnimationOptions = {
   once?: boolean;
-  margin?: string;
+  margin?: string; // e.g. "-100px"
   amount?: number;
 };
 
