@@ -6,49 +6,49 @@
 
 @layer base {
   :root {
-    --background: 228 60% 7%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 96%;
 
-    --card: 228 50% 10%;
+    --card: 0 0% 5%;
     --card-foreground: 210 40% 96%;
 
-    --popover: 228 50% 10%;
+    --popover: 0 0% 5%;
     --popover-foreground: 210 40% 96%;
 
     --primary: 199 89% 48%;
-    --primary-foreground: 228 60% 7%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 228 40% 16%;
+    --secondary: 0 0% 8%;
     --secondary-foreground: 210 40% 96%;
 
-    --muted: 228 30% 14%;
+    --muted: 0 0% 7%;
     --muted-foreground: 215 20% 60%;
 
     --accent: 199 89% 48%;
-    --accent-foreground: 228 60% 7%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 228 30% 18%;
-    --input: 228 30% 18%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
     --ring: 199 89% 48%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 228 50% 8%;
+    --sidebar-background: 0 0% 3%;
     --sidebar-foreground: 210 40% 96%;
     --sidebar-primary: 199 89% 48%;
-    --sidebar-primary-foreground: 228 60% 7%;
-    --sidebar-accent: 228 40% 16%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 8%;
     --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 228 30% 18%;
+    --sidebar-border: 0 0% 12%;
     --sidebar-ring: 199 89% 48%;
 
     /* Custom tokens */
     --glow-primary: 199 89% 48%;
-    --navy-deep: 228 60% 7%;
-    --navy-medium: 228 50% 12%;
+    --navy-deep: 0 0% 0%;
+    --navy-medium: 0 0% 5%;
     --cyan-glow: 185 80% 55%;
   }
 }
@@ -65,6 +65,10 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -89,7 +93,7 @@
   }
 
   .bg-gradient-hero {
-    background: linear-gradient(135deg, hsl(var(--navy-deep)) 0%, hsl(228 50% 10%) 50%, hsl(228 40% 14%) 100%);
+    background: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 7%) 100%);
   }
 
   .hover-glow {

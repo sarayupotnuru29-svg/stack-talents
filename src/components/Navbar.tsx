@@ -37,10 +37,11 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between h-20 px-4 md:px-8">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="Stack Talent IT Services" className="h-12 w-12 rounded-full object-cover" />
+          <img src={logo} alt="Stack Talent IT Services" className="h-14 w-14 md:h-16 md:w-16 rounded-full object-cover" />
           <div className="hidden sm:block">
             <span className="font-display font-bold text-lg text-foreground">STACK TALENT</span>
             <span className="block text-xs text-primary tracking-widest">IT SERVICES</span>
+            <span className="block text-[10px] text-muted-foreground tracking-wide italic">Built on tech. Driven by talent.</span>
           </div>
         </Link>
 
